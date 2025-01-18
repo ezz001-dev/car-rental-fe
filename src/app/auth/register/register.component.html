@@ -1,0 +1,86 @@
+<div class="min-h-screen flex flex-col md:flex-row">
+  <!-- Left Column -->
+  <div class="flex-1 bg-cover bg-center" style="background-image: url('path/to/your/image.jpg');">
+    <div class="flex items-center justify-center h-full bg-black bg-opacity-50">
+      <div class="text-center text-white p-8">
+        <h1 class="text-4xl font-bold mb-4">Join Us!</h1>
+        <p class="text-lg">Create an account to get started.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column -->
+  <div class="flex-none w-full md:w-1/4 flex items-center justify-center bg-black bg-opacity-50 p-10">
+    <div class="p-10 rounded-xl shadow-lg w-full max-w-md text-white bg-black bg-opacity-50 ">
+      <h2 class="text-3xl font-bold mb-6 text-center ">Register</h2>
+      <form (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium ">Name</label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="user.name"
+            name="name"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-transparent"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium ">Email</label>
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="user.email"
+            name="email"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-transparent"
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium ">Password</label>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="user.password"
+            name="password"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-transparent"
+          />
+        </div>
+        <div>
+          <label for="phone_number" class="block text-sm font-medium ">Phone number</label>
+          <input
+            type="text"
+            id="phone_number"
+            [(ngModel)]="user.phone_number"
+            name="password"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-transparent"
+          />
+        </div>
+        <div>
+          <label for="sim_number" class="block text-sm font-medium ">Sim number</label>
+          <input
+            type="text"
+            id="sim_number"
+            [(ngModel)]="user.sim_number"
+            name="password"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-transparent"
+          />
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg text-sm font-medium text-white bg-cover bg-center transition duration-300 "
+          >
+            Register
+          </button>
+        </div>
+      </form>
+      <div class="mt-4 text-center">
+        <a routerLink="/login" class="text-sm text-white-600 hover:text-white-700 transition duration-300">Already have an account? Login here</a>
+      </div>
+    </div>
+  </div>
+</div>
