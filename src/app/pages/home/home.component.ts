@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -29,10 +29,16 @@ export class HomeComponent implements OnInit {
   isAvail: boolean = false;
   availibility: any;
 
+  contentHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get(this.baseUrl + '/cars').subscribe(
+    this.getCars()
+  }
+
+  getCars() {
+    this.http.get(this.baseUrl + '/cars', { headers: this.contentHeader }).subscribe(
       (res: any) => {
         this.carList = res?.data
         console.log(this.carList)
