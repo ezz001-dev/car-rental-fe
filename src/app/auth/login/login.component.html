@@ -41,7 +41,10 @@
             type="submit"
             class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg text-sm font-medium text-white  transition duration-300 bg-cover bg-center"
           >
-            Login
+          {{ !isLoad ? 'Login' : "Loading" }}
+          @if (isLoad) {
+            <span class="loader" ></span>
+          }
           </button>
         </div>
       </form>

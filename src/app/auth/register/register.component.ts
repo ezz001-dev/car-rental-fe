@@ -15,24 +15,30 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class RegisterComponent {
 
+  isLoad: boolean = false;
+
   user = {
     name: '',
     email: '',
     password: '',
     address: '',
-    phone_number: '',
+    phone: '',
     sim_number: ''
   };
 
   constructor(private http: HttpClient, private router: Router) { }
 
   onSubmit() {
+    this.isLoad = true;
+
     this.http.post('http://localhost:8000/api/register', this.user).subscribe(
       (response) => {
         console.log('Registration successful', response);
+        this.isLoad = false;
         this.router.navigate(['/login']);
       },
       (error) => {
+        this.isLoad = false;
         console.error('Registration failed', error);
       }
     );

@@ -48,11 +48,22 @@
           />
         </div>
         <div>
+          <label for="address" class="block text-sm font-medium ">Address</label>
+          <input
+            type="address"
+            id="password"
+            [(ngModel)]="user.address"
+            name="password"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-transparent"
+          />
+        </div>
+        <div>
           <label for="phone_number" class="block text-sm font-medium ">Phone number</label>
           <input
             type="text"
             id="phone_number"
-            [(ngModel)]="user.phone_number"
+            [(ngModel)]="user.phone"
             name="password"
             required
             class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-transparent"
@@ -74,7 +85,10 @@
             type="submit"
             class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg text-sm font-medium text-white bg-cover bg-center transition duration-300 "
           >
-            Register
+            {{ !isLoad ? 'Register' : "Loading" }}
+            @if (isLoad) {
+              <span class="loader" ></span>
+            }
           </button>
         </div>
       </form>
