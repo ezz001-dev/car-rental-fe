@@ -17,11 +17,15 @@
   </div>
 
   <div class="navbar max-w-7xl mx-auto mt-4">
-    <h1> List Rental </h1>
+    <h1> History Rental </h1>
   </div>
+
 
   <!-- Card List -->
   <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+
+
+
     <!-- Card Example -->
      @for (item of carList; track $index) {
 
@@ -34,27 +38,27 @@
          <div class="card-body">
           <div class="wrapper flex justify-between ">
             <h2 class="card-title">
-             {{ item.car.brand }} - {{ item.car.model }}
+             {{ item.rental.car.brand }} - {{ item.rental.car.model }}
             </h2>
 
 
           </div>
            <span>
-            {{ item.car.license_plate }}
+            {{ item.rental.car.license_plate }}
            </span>
            <span>
-            {{ 'Rp. '+ item.car.rental_price_per_day + ' / Hari' }}
+            {{ 'Rp. '+ item.rental.car.rental_price_per_day + ' / Hari' }}
            </span>
-            <span>
+            <!-- <span>
             {{ 'Lama Pinjaman : ' + item.days_rented + ' Hari' }}
             </span>
            <span>
             {{ 'Total Harga Rp. '+ item.total_cost }}
-           </span>
+           </span> -->
 
-           <div class="card-actions mt-4">
+           <!-- <div class="card-actions mt-4">
             <button class="btn btn-outline btn-primary" (click)="onSelect(item.car)" onclick="my_modal_2.showModal(); ">Pengembalian Mobil</button>
-           </div>
+           </div> -->
 
          </div>
        </div>
@@ -74,7 +78,7 @@
 
 
             <!-- if there is a button in form, it will close the modal -->
-             <button class="btn btn-outline btn-primary mr-2" (click)="returnRental()" > Lakukan Pengmbalian </button>
+             <!-- <button class="btn btn-outline btn-primary mr-2" (click)="returnRental()" > Lakukan Pengmbalian </button> -->
             <button class="btn btn-outline btn-error" >Close</button>
           </form>
         </div>

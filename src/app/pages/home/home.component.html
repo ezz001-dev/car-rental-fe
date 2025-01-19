@@ -1,19 +1,22 @@
+
+<div class="loader-page bg-black bg-opacity-50" [ngClass]="isLoad ? 'show' : 'close' "></div>
+
 <div class="min-h-screen bg-gray-100 p-10 ">
-  <!-- Header -->
+
+
   <div class="navbar bg-gray-500 rounded-md shadow-lg max-w-7xl mx-auto">
     <div class="flex-1">
       <a class="btn btn-ghost text-xl">RentCar</a>
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1">
-        <li><a>Home</a></li>
-        <li><a>Your Order</a></li>
-        <li><a>Logout</a></li>
+        <li><a routerLink="/pages/home" >Home</a></li>
+        <li><a routerLink="/pages/order-list">Your Order</a></li>
+        <li><a routerLink="/pages/rent-history">Your Rent History</a></li>
+        <li><a (click)="logout()">Logout</a></li>
       </ul>
     </div>
   </div>
-
-
 
   <!-- Search Bar -->
   <div class="max-w-7xl mx-auto mt-4 flex items-center gap-2">
@@ -57,7 +60,9 @@
       Reset Filter
     </button>
 
-
+    <button class="btn ml-auto" onclick="add_car.showModal(); " >
+      Add New Car
+    </button>
   </div>
 
   <!-- Card List -->
@@ -142,7 +147,55 @@
 
 
             <!-- if there is a button in form, it will close the modal -->
-             <div class="btn btn-outline btn-primary mr-2" (click)="doOrder(selectedOrder)" > Pesan </div>
+             <button class="btn btn-outline btn-primary mr-2" (click)="doOrder(selectedOrder)" > Pesan </button>
+            <button class="btn btn-outline btn-error" (click)="closeModal()">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+
+
+    <dialog id="add_car" class="modal">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Add car</h3>
+        <div class="modal-action">
+          <form method="dialog" class="w-full">
+
+            <label class="input input-bordered flex items-center gap-2 mb-4">
+              Merek / Brand
+              <input type="text" [(ngModel)]="newCar.brand" name="brand" class="grow"  />
+            </label>
+
+            <label class="input input-bordered flex items-center gap-2 mb-4">
+              Model
+              <input type="text" [(ngModel)]="newCar.model" name="model" class="grow" />
+            </label>
+
+            <label class="input input-bordered flex items-center gap-2 mb-4">
+              Plat No
+              <input type="text" [(ngModel)]="newCar.license_plate" name="license_plate" class="grow" />
+            </label>
+
+            <label class="input input-bordered flex items-center gap-2 mb-4">
+              Tarif ( Per Hari )
+              <input type="text" [(ngModel)]="newCar.price_per_day" name="price_per_day" class="grow" />
+            </label>
+
+            <div class="flex mb-4 gap-2 justify-between">
+              <span >
+                Ketersediaan
+              </span>
+              <input type="checkbox" [(ngModel)]="newCar.is_available" name="is_available" (click)="getValueCheck($event)" class="toggle" checked="checked" />
+
+            </div>
+
+
+
+
+
+            <!-- if there is a button in form, it will close the modal -->
+             <button class="btn btn-outline btn-primary mr-2" (click)="onAddNewCar(newCar)" > Add </button>
             <button class="btn btn-outline btn-error" (click)="closeModal()">Close</button>
           </form>
         </div>

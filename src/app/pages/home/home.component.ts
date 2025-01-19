@@ -1,11 +1,14 @@
+import { NgClass } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-home',
   imports: [
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule, RouterLink, NgClass
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -29,11 +32,22 @@ export class HomeComponent implements OnInit {
   isAvail: boolean = false;
   availibility: any;
 
+  isLoad: boolean = false;
+
   contentHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-  constructor(private http: HttpClient) { }
+  newCar: any = {
+    "brand": '',
+    "model": '',
+    "license_plate": '',
+    "price_per_day": '',
+    "is_available": ''
+  }
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
+    this.isLoad = true;
     this.getCars()
   }
 
@@ -42,6 +56,10 @@ export class HomeComponent implements OnInit {
       (res: any) => {
         this.carList = res?.data
         console.log(this.carList)
+        this.isLoad = false;
+      },
+      err => {
+        this.isLoad = false;
       }
     )
   }
@@ -55,12 +73,26 @@ export class HomeComponent implements OnInit {
     //
     this.http.post(this.baseUrl + '/rentals', {
       "car_id": this.selectedOrder.id,
-      "user_id": "1",
       "start_date": new Date(this.startDate),
       "end_date": new Date(this.endDate),
+      "total_cost": this.totalPrice
     }
-    ).subscribe(res => {
+    ).subscribe((res: any) => {
       console.log(res)
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: res.message,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }, err => {
+      console.log(err.error.message)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.error.message,
+      });
     })
   }
 
@@ -110,6 +142,42 @@ export class HomeComponent implements OnInit {
     })
 
 
+  }
+
+  getValueCheck(event: Event) {
+    console.log((event.target as HTMLInputElement).checked)
+    this.newCar.is_available = (event.target as HTMLInputElement).checked
+  }
+
+  onAddNewCar(item: any) {
+    console.log(item)
+    item = {
+      ...item,
+      "rental_price_per_day": item.price_per_day
+    }
+    this.http.post(this.baseUrl + '/cars/add', item).subscribe(res => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Mobil Berhasil ditambahkan",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }, err => {
+      console.log(err.error.message)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.error.message,
+      });
+    })
+  }
+
+  logout() {
+    this.http.post(this.baseUrl + '/logout', {}).subscribe(res => {
+      console.log(res)
+      this.router.navigate(['/login'])
+    })
   }
 
 }

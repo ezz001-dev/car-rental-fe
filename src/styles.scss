@@ -107,3 +107,23 @@ body {
 		width: 80%;
 	}
 }
+
+
+
+.loader-page {
+  top: 0;
+  left: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-image: url('../public/loader.svg');
+  background-size: 80px;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 100;
+  transition: ease-in-out .5s;
+}
+
+.loader-page.close {
+  top: -110%;
+}
