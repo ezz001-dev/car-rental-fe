@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages.component';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { OrderListComponent } from './order-list/order-list.component';
 
 
 
 @NgModule({
   declarations: [
-    PagesComponent
+    PagesComponent,
+    OrderListComponent
   ],
   imports: [
     CommonModule,

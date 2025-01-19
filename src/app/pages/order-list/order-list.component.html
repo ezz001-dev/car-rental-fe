@@ -1,0 +1,47 @@
+<div class="min-h-screen bg-gray-100 p-10 ">
+  <!-- Card List -->
+  <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+    <!-- Card Example -->
+     @for (item of carList; track $index) {
+
+       <div class="card bg-base-100 w-96 shadow-xl">
+         <figure>
+           <img
+             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+             alt="Shoes" />
+         </figure>
+         <div class="card-body">
+          <div class="wrapper flex justify-between ">
+            <h2 class="card-title">
+             {{ item.brand }} - {{ item.model }}
+            </h2>
+
+
+              @if (item.is_available == 1) {
+                <span class="badge badge-primary">
+                  Tersedia
+                </span>
+              }
+              @else{
+                <span class="badge badge-error">
+                  Tidak Tersedia
+                </span>
+               }
+
+          </div>
+           <span>
+            {{ item.license_plate }}
+           </span>
+           <span>
+            {{ 'Rp. '+ item.rental_price_per_day + ' / Hari' }}
+           </span>
+
+         </div>
+       </div>
+
+     }
+
+
+
+  </div>
+</div>
