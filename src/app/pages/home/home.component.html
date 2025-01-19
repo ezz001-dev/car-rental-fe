@@ -1,48 +1,110 @@
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-gray-100 p-10 ">
   <!-- Header -->
-  <header class="bg-white shadow">
-    <div class="max-w-7xl mx-auto px-4 py-6">
-      <h1 class="text-3xl font-bold text-gray-800">Car Listings</h1>
+  <div class="navbar bg-gray-500 rounded-md shadow-lg max-w-7xl mx-auto">
+    <div class="flex-1">
+      <a class="btn btn-ghost text-xl">RentCar</a>
     </div>
-  </header>
-
-  <!-- Search Bar -->
-  <div class="max-w-7xl mx-auto px-4 py-6">
-    <div class="flex justify-center">
-      <input
-        type="text"
-        placeholder="Search for cars..."
-        class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-      />
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+        <li><a>Home</a></li>
+        <li><a>Your Order</a></li>
+        <li><a>Logout</a></li>
+      </ul>
     </div>
   </div>
 
-  <!-- Card List -->
-  <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <!-- Card Example -->
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-      <img src="path/to/car-image.jpg" alt="Car" class="w-full h-40 object-cover" />
-      <div class="p-4">
-        <h2 class="text-xl font-bold text-gray-800">Car Model Name</h2>
-        <p class="text-gray-600">Description of the car goes here.</p>
-        <div class="mt-4">
-          <span class="text-lg font-semibold text-blue-600">$20,000</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Repeat the card for more cars -->
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-      <img src="path/to/car-image.jpg" alt="Car" class="w-full h-40 object-cover" />
-      <div class="p-4">
-        <h2 class="text-xl font-bold text-gray-800">Car Model Name</h2>
-        <p class="text-gray-600">Description of the car goes here.</p>
-        <div class="mt-4">
-          <span class="text-lg font-semibold text-blue-600">$20,000</span>
-        </div>
-      </div>
-    </div>
+
+  <!-- Search Bar -->
+  <div class="max-w-7xl mx-auto mt-4">
+    <label class="input input-bordered flex items-center gap-2">
+      <input type="text" class="grow" placeholder="Search" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        class="h-4 w-4 opacity-70">
+        <path
+          fill-rule="evenodd"
+          d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+          clip-rule="evenodd" />
+      </svg>
+    </label>
+  </div>
+
+  <!-- Card List -->
+  <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+    <!-- Card Example -->
+     @for (item of carList; track $index) {
+
+       <div class="card bg-base-100 w-96 shadow-xl">
+         <figure>
+           <img
+             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+             alt="Shoes" />
+         </figure>
+         <div class="card-body">
+           <h2 class="card-title">
+            {{ item.brand }} - {{ item.model }}
+           </h2>
+           <span>
+            {{ item.license_plate }}
+           </span>
+           <span>
+            {{ 'Rp. '+ item.rental_price_per_day + ' / Hari' }}
+           </span>
+           <p>If a dog chews shoes whose shoes does he choose?</p>
+           <div class="card-actions justify-end">
+            <button class="btn btn-outline btn-primary" (click)="order(item)" onclick="my_modal_1.showModal(); " >Book</button>
+           </div>
+         </div>
+       </div>
+
+     }
 
     <!-- Add more cards as needed -->
+    <dialog id="my_modal_1" class="modal">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Order</h3>
+        <div class="modal-action">
+          <form method="dialog" class="w-full">
+
+            <label class="input input-bordered flex items-center gap-2 mb-4">
+              Start Date
+              <input type="date" [(ngModel)]="startDate" name="startDate" (change)="calculate(startDate ,endDate)" class="grow" placeholder="Start Date" />
+            </label>
+
+
+            <label class="input input-bordered flex items-center gap-2 mb-4">
+              End Date
+              <input type="date" [(ngModel)]="endDate" name="endDate" (change)="calculate(startDate ,endDate)" class="grow" placeholder="End Date" />
+            </label>
+
+            <div class="flex justify-end">
+              <div class=" justify-end flex flex-row justify-between flex-wrap w-full mb-4">
+                @if (totalPrice && totalDays ) {
+                  <h3 class="w-full"> {{ selectedOrder.brand + ' - ' + selectedOrder.model }} </h3>
+                  <br>
+                  <span class="text-md">
+                    Jumlah Hari : {{ totalDays }}
+                  </span>
+                  <span class="text-md">
+                    Total Harga Sewa : {{ totalPrice }}
+                  </span>
+                }
+              </div>
+            </div>
+            <!-- <br> -->
+
+
+
+            <!-- if there is a button in form, it will close the modal -->
+             <div class="btn btn-outline btn-primary mr-2" (click)="doOrder(selectedOrder)" > Pesan </div>
+            <button class="btn btn-outline btn-error" (click)="closeModal()">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
   </div>
 </div>
