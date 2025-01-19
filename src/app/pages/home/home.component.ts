@@ -21,7 +21,13 @@ export class HomeComponent implements OnInit {
   startDate: any;
   endDate: any;
 
+  selectType: any;
+  inputText: any;
+
   baseUrl: string = 'http://localhost:8000/api'
+
+  isAvail: boolean = false;
+  availibility: any;
 
   constructor(private http: HttpClient) { }
 
@@ -71,6 +77,33 @@ export class HomeComponent implements OnInit {
     this.totalPrice = null;
     this.startDate = null;
     this.endDate = null;
+  }
+
+  search() {
+    let url = this.baseUrl + '/cars/search?'
+    switch (this.selectType) {
+      case 'brand':
+        url = url + 'brand=' + this.inputText
+        break;
+
+      case 'model':
+        url = url + 'model=' + this.inputText
+        break;
+
+      case 'avail':
+        url = url + 'available=' + this.availibility
+        break;
+
+      default:
+        break;
+    }
+
+    this.http.get(url).subscribe((res: any) => {
+      console.log(res)
+      this.carList = res.data
+    })
+
+
   }
 
 }
