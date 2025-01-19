@@ -31,7 +31,7 @@ export class LoginComponent {
         this.isLoad = false;
         console.log('Login successful', response);
         localStorage.setItem('access_token', response.access_token);
-        this.router.navigate(['/']);
+        this.router.navigate(['/pages/home']);
       },
       (error) => {
         this.isLoad = false;
